@@ -22,16 +22,17 @@
 
 		// tekst, który nas interesuje znajduję się pomiędzy znacznikami body
 		$article = $dom->getElementsByTagName("body")->item(0);
-		$counter = 0; // licznik cytatów
+		$counter = 0; // licznik cytowań
 		foreach ($article->getElementsByTagName("xref") as $xref) {
 			if ($xref->getAttribute("ref-type") == "bibr") {
-				$counter++;  // inkrementacja liczby cytatów
+				$counter++;  // inkrementacja liczby cytowań
 				$text = $xref->nodeValue;
-				$xref->nodeValue = "[TU JEST CYTOWANIE]";
-				echo $text."\r\n"; // pomocnicze wyświetlam cytaty
+				$xref->nodeValue = "[CYTOWANIE]";
+				echo $text."\r\n"; // pomocnicze wyświetlam cytowanie
 			}
 		}	
-		// jeżeli mamy jakiekolwiek cytaty to wykonujemy poniższy kod, w przeciwnym wypadku zajmujemy się innym plikem
+		// jeżeli mamy jakiekolwiek cytowanie to wykonujemy poniższy kod, w przeciwnym wypadku zajmujemy się innym plikem
+		// czyli tekst który nie ma żadnego cytowania jest automatycznie odrzucony 
 		if($counter > 0){
 			// wyrzucamy media - czyli odnośniki do nagrań itp.
 			// w przeciwnym wypadku pobiera nam się komunikat - Click here for additional data file.
@@ -45,7 +46,7 @@
 			$p = $article->getElementsByTagName("p");
 			foreach($p as $i) {
 				$text = $i->nodeValue;
-				$text = trim(preg_replace('/\s\s+/', ' ', $text)); // usuwamy przejście do nowej linni (teoretcznie cały tekst będzie jedną liną)
+				$text = trim(preg_replace('/\s\s+/', ' ', $text)); // usuwamy przejście do nowej linni 
 				echo $text; // podląd w przeglądarce zapisywanego tekstu
 				fwrite($myfile, $text);
 			}
@@ -63,7 +64,7 @@
 					echo "Błąd";
 				}
 			}
-			echo $counter; // pomocnicze wyświetlam liczbę cytatów
+			echo $counter; // pomocnicze wyświetlam liczbę cytowań
 			// $dom->save("nowy.txt"); // jakbyśmy chcieli zapisać nową wersję xml 
 		}
 	}
