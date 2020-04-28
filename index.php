@@ -27,7 +27,7 @@
 			if ($xref->getAttribute("ref-type") == "bibr") {
 				$counter++;  // inkrementacja liczby cytowań
 				$text = $xref->nodeValue;
-				$xref->nodeValue = "[CYTOWANIE]";
+				$xref->nodeValue = " [CYTOWANIE]";
 				echo $text."\r\n"; // pomocnicze wyświetlam cytowanie
 			}
 		}	
